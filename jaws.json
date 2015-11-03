@@ -1,0 +1,19 @@
+{
+  "name": "jaws-recur",
+  "version": "0.0.1",
+  "location": "https://github.com/...",
+  "author": "",
+  "description": "",
+  "domain": "myapp-V1CkKlxM.com",
+  "stages": {
+    "dev": [
+      {
+        "region": "us-east-1",
+        "iamRoleArnLambda": "arn:aws:iam::123709812981:role/dev-jaws-recur-r-IamRoleLambda-1E2CLYKNKWH19",
+        "iamRoleArnApiGateway": "arn:aws:iam::123709812981:role/dev-jaws-recur-r-IamRoleApiGateway-1IVU0SL0HBVQN",
+        "jawsBucket": "jaws.dev.useast1.myapp-v1ckklxm.com",
+        "restApiId": "mb33sup7h4"
+      }
+    ]
+  }
+}
