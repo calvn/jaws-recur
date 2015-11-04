@@ -15,7 +15,7 @@ module.exports.run = function(event, context, cb) {
 var action = function(cb) {
   var params = {
     TableName: 'recur-services-dev',
-    AttributesToGet: [ 'ServiceName' ]
+    // AttributesToGet: [ 'name' ]
   }
 
   dynamoDb.scan(params, function(err, data){
@@ -25,10 +25,17 @@ var action = function(cb) {
       console.log(data)
       // Need to return back as an JSON array
       var items = data.Items.map(function(record) {
-        return record['ServiceName'].S;
+        return {
+          name: record['name'].S,
+          price: record['price'].S
+        }
       });
 
-      cb(null, items)
+      var res = {
+        services: items
+      }
+
+      cb(null, res)
     }
   });
 };

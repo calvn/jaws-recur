@@ -26,7 +26,7 @@
     "deploy": false,
     "cloudFormation": {
       "Type": "AWS",
-      "Path": "healthcheck/get",
+      "Path": "healthcheck",
       "Method": "GET",
       "AuthorizationType": "none",
       "ApiKeyRequired": false,

@@ -14,6 +14,7 @@
   "dependencies": {
     "jaws-core-js": "~0.0.2",
     "aws-sdk": "^2.2.10",
-    "dynamodb-marshaler": "~1.2.1"
+    "dynamodb-marshaler": "~1.2.1",
+    "node-uuid": "~1.4.2"
   }
 }
