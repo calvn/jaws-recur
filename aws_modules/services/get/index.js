@@ -8,11 +8,11 @@ var unmarshalItem = require('dynamodb-marshaler').unmarshalItem;
 
 // Export For Lambda Handler
 module.exports.run = function(event, context, cb) {
-  return cb(null, action());
+  return action(cb)
 };
 
 // Your Code
-var action = function() {
+var action = function(cb) {
   var params = {
     TableName: 'recur-services-dev',
     AttributesToGet: [ 'ServiceName' ]
@@ -22,10 +22,13 @@ var action = function() {
     if (err) {
       cb(err, null);
     } else {
-      // console.log(data)
+      console.log(data)
       // Need to return back as an JSON array
-      var items = data.Items.map(unmarshalItem);
-      console.log(items)
+      var items = data.Items.map(function(record) {
+        return record['ServiceName'].S;
+      });
+
+      cb(null, items)
     }
   });
 };

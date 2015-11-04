@@ -8,6 +8,40 @@
     }
   },
   "Resources": {
+    "lServicesGet": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Description": "",
+        "Handler": "aws_modules/services/get/handler.handler",
+        "MemorySize": 1024,
+        "Runtime": "nodejs",
+        "Timeout": 6,
+        "Code": {
+          "S3Bucket": "jaws.dev.useast1.myapp-v1ckklxm.com",
+          "S3Key": "JAWS/jaws-recur/dev/lambdas/lServicesGet@1446581960619.zip"
+        },
+        "Role": {
+          "Ref": "aaLambdaRoleArn"
+        }
+      }
+    },
+    "lServicesPost": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Description": "",
+        "Handler": "aws_modules/services/post/handler.handler",
+        "MemorySize": 1024,
+        "Runtime": "nodejs",
+        "Timeout": 6,
+        "Code": {
+          "S3Bucket": "jaws.dev.useast1.myapp-v1ckklxm.com",
+          "S3Key": "JAWS/jaws-recur/dev/lambdas/lServicesPost@1446581961573.zip"
+        },
+        "Role": {
+          "Ref": "aaLambdaRoleArn"
+        }
+      }
+    },
     "lHealthcheckGet": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
