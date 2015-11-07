@@ -8,18 +8,17 @@ var uuid = require('node-uuid');
 
 // Export For Lambda Handler
 module.exports.run = function(event, context, cb) {
-  action(cb, event);
+  action(event, cb);
 };
 
 // Your Code
 // POST should automatically generate a UUID
 // and base64 encode it to shorten it/remove the hyphens.
-var action = function(cb, event) {
+var action = function(event, cb) {
   var serviceId = new Buffer(uuid.v4()).toString('base64');
   var serviceName = event.name;
   var servicePrice = event.price;
 
-  // Check whether name exists
   var queryParams = {
     TableName: 'recur-services-dev',
     IndexName: 'name-index',
@@ -34,13 +33,14 @@ var action = function(cb, event) {
       }
     }
   };
+  // Check whether name exists
   dynamoDb.query(queryParams, function(err, data) {
     if (err) {
       cb(err, null);
     } else {
       if (data.Count != 0) {
-        // TODO: Return appropriate response
-        cb(null, null);
+        // TODO: Return appropriate response code.
+        cb(null, 'User alredy exists');
       } else {
         // Insert if not present
         var params = {
@@ -61,6 +61,7 @@ var action = function(cb, event) {
           if (err) {
             cb(err, null);
           } else {
+            // It should be the item as JSON
             cb(null, 'OK');
           }
         });
