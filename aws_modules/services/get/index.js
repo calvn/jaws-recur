@@ -3,8 +3,7 @@
  */
 
 var AWS = require('aws-sdk');
-var dynamoDb = new AWS.DynamoDB({region: 'us-east-1'});
-var unmarshalItem = require('dynamodb-marshaler').unmarshalItem;
+var docClient = new AWS.DynamoDB.DocumentClient({region: 'us-east-1'});
 
 // Export For Lambda Handler
 module.exports.run = function(event, context, cb) {
@@ -18,24 +17,12 @@ var action = function(cb) {
     // AttributesToGet: [ 'name' ]
   }
 
-  dynamoDb.scan(params, function(err, data){
-    if (err) {
-      cb(err, null);
+  docClient.scan(params, function(err, data){
+    console.log(data.Items);
+    if(err) {
+      return cb(err, null);
     } else {
-      console.log(data)
-      // Need to return back as an JSON array
-      var items = data.Items.map(function(record) {
-        return {
-          name: record['name'].S,
-          price: record['price'].S
-        }
-      });
-
-      var res = {
-        services: items
-      }
-
-      cb(null, res)
+      cb(null, data.Items);
     }
   });
 };

@@ -6,11 +6,11 @@ var docClient = new AWS.DynamoDB.DocumentClient({region: 'us-east-1'});
 
 // Export For Lambda Handler
 module.exports.run = function(event, context, cb) {
-  return cb(null, action(event));
+  return action(event, cb);
 };
 
 // Your Code
-var action = function(event) {
+var action = function(event, cb) {
   var serviceId = event.id;
 
   var params = {
@@ -22,7 +22,10 @@ var action = function(event) {
 
   docClient.get(params, function(err, data) {
     console.log(data.Item);
+    if(err) {
+      return cb(err, null);
+    } else {
+      cb(null, data.Item);
+    }
   });
-
-  return {message: 'Your JAWS lambda executed successfully!'};
 };
