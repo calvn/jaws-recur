@@ -14,6 +14,7 @@ module.exports.run = function(event, context, cb) {
 // Your Code
 // POST should automatically generate a UUID
 // and base64 encode it to shorten it/remove the hyphens.
+// TODO: Refactor to use docClient
 var action = function(event, cb) {
   var serviceId = new Buffer(uuid.v4()).toString('base64');
   var serviceName = event.name;

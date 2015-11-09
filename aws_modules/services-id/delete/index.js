@@ -10,6 +10,7 @@ module.exports.run = function(event, context, cb) {
 };
 
 // Your Code
+// TODO: Return correct response codes on error
 var action = function(event, cb) {
   var serviceId = event.id;
 
@@ -17,15 +18,16 @@ var action = function(event, cb) {
     TableName: 'recur-services-dev',
     Key: {
       id: serviceId
-    }
+    },
+    ReturnValues: 'ALL_OLD'
   };
 
-  docClient.get(params, function(err, data) {
-    console.log(data.Item);
-    if(err) {
+  docClient.delete(params, function(err, data){
+    if (err) {
       return cb(err, null);
     } else {
-      cb(null, data.Item);
+      console.log(data.Attributes);
+      cb(null, data.Attributes);
     }
   });
 };
